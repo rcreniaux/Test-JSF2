@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!-- =========== FULL CONFIGURATION FILE ================================== -->
+
+<faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
+
+	<managed-bean>
+		<managed-bean-name>applicationBean</managed-bean-name>
+		<managed-bean-class>org.rcx.test.jsf2.web.Application</managed-bean-class>
+		<managed-bean-scope>application</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>tagCloudBean</managed-bean-name>
+		<managed-bean-class>org.rcx.test.jsf2.web.TagCloudBean</managed-bean-class>
+		<managed-bean-scope>application</managed-bean-scope>
+	</managed-bean>
+	<!-- le bean form -->
+	<managed-bean>
+		<managed-bean-name>search</managed-bean-name>
+		<managed-bean-class>org.rcx.test.jsf2.web.Search</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+			<property-name>applicationBean</property-name>
+			<value>#{applicationBean}</value>
+		</managed-property>
+		<managed-property>
+			<property-name>tagCloudBean</property-name>
+			<value>#{tagCloudBean}</value>
+		</managed-property>
+	</managed-bean>
+
+</faces-config>

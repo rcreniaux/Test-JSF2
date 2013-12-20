@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<f:view>
+	<h:head>
+		<title>JSF</title>
+		<h:outputStylesheet library="css" name="styles.css" />
+	</h:head>
+	<h:body>
+		<h:form id="formulaire">
+			<p:tabView effect="fade" effectDuration="normal" id="tabs">
+
+				<p:tab title="Recherche">
+
+					<h:panelGrid columns="4" cellpadding="5">
+						<p:inputText id="name" value="#{search.searchValue}" />
+
+						<p:commandButton value="Recherche" actionListener="#{search.onSearch}" update="tagCloud" styleClass="ui-priority-primary" />
+
+						<h:outputText value="#{search.searchValue}" id="display" />
+					</h:panelGrid>
+
+					<p:growl id="growl" showDetail="true" sticky="true" />
+					<p:tagCloud model="#{search.tagCloudBean.model}" id="tagCloud" />
+
+				</p:tab>
+
+				<p:tab title="Tendances">
+
+				</p:tab>
+
+			</p:tabView>
+		</h:form>
+	</h:body>
+</f:view>
+</html>
