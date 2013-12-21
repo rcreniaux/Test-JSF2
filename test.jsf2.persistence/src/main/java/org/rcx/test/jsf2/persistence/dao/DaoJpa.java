@@ -6,8 +6,12 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.rcx.test.jsf2.persistence.entity.Compte;
 import org.rcx.test.jsf2.persistence.entity.FavTrend;
+import org.rcx.test.jsf2.persistence.entity.MouvementCompte;
+import org.rcx.test.jsf2.persistence.exception.CompteException;
 import org.rcx.test.jsf2.persistence.exception.FavTrendException;
+import org.rcx.test.jsf2.persistence.exception.MouvementCompteException;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
@@ -25,6 +29,26 @@ public class DaoJpa implements IDao, Serializable {
 			return em.createNamedQuery("FavTrend.findAll").getResultList();
 		} catch (Throwable th) {
 			throw new FavTrendException(th);
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<MouvementCompte> getMouvementCompteByCompteId(Integer compteId) throws MouvementCompteException {
+		try {
+			return em.createNamedQuery("MouvementCompte.findByCompte").getResultList();
+		} catch (Throwable th) {
+			throw new MouvementCompteException(th);
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Compte> getAllCompte() throws CompteException {
+		try {
+			return em.createNamedQuery("Compte.findAll").getResultList();
+		} catch (Throwable th) {
+			throw new CompteException(th);
 		}
 	}
 

@@ -1,4 +1,4 @@
-package org.rcx.test.jsf2.web;
+package org.rcx.test.jsf2.web.pfbean;
 
 import java.io.Serializable;
 

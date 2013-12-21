@@ -12,25 +12,73 @@
 		<h:form id="formulaire">
 			<p:tabView effect="fade" effectDuration="normal" id="tabs">
 
-				<p:tab title="Recherche">
+				<p:tab title="Ajout Mouvement" id="ajoutMouvementTab">
 
-					<h:panelGrid columns="4" cellpadding="5">
-						<p:inputText id="name" value="#{search.searchValue}" />
+					<p:panelGrid columns="2">
 
-						<p:commandButton value="Recherche" actionListener="#{search.onSearch}" update="tagCloud" styleClass="ui-priority-primary" />
+						<h:outputLabel value="Compte: " />
+						<p:selectOneMenu value="#{ajoutMouvement.selectedCompte}" effect="fade">
+							<f:selectItem itemLabel="Sélectionner" itemValue="" />
+							<f:selectItems value="#{ajoutMouvement.comptes}" var="compte" itemLabel="#{compte.label}" itemValue="#{compte}" />
+						</p:selectOneMenu>
 
-						<h:outputText value="#{search.searchValue}" id="display" />
-					</h:panelGrid>
+						<h:outputLabel for="montant" value="Montant: *" />
+						<p:inputText id="montant" value="#{ajoutMouvement.montant}" label="Montant" />
 
-					<p:growl id="growl" showDetail="true" sticky="true" />
-					
-					<p:tagCloud model="#{search.tagCloudBean.model}" id="tagCloud" >
-						<p:ajax event="select" update="tagCloud,display,name" listener="#{search.onSelectTag}" />  
-					</p:tagCloud>
+						<h:outputLabel value="Type opération :" />
+						<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+							<p:selectOneButton value="#{ajoutMouvement.typeOperation}">
+								<f:selectItem itemLabel="Débit" itemValue="1" />
+								<f:selectItem itemLabel="Crédit" itemValue="2" />
+							</p:selectOneButton>
+						</h:panelGrid>
+
+						<h:outputLabel value="Date mouvement :" />
+						<p:calendar value="#{ajoutMouvement.date}" id="popupCal" />
+
+						<f:facet name="footer">
+							<p:commandButton type="button" value="Enregistrer" icon="ui-icon-check" style="margin:0" update="tabs" oncomplete="PF('dlg').show()" actionListener="#{ajoutMouvement.saveMouvement}"/>
+						</f:facet>
+					</p:panelGrid>
+
+					<p:dialog header="Selected Values" modal="true" showEffect="fade" hideEffect="fade" widgetVar="dlg">
+						<h:panelGrid columns="1" id="display">
+							<h:outputText value="Compte : #{ajoutMouvement.selectedCompte}" />
+							<h:outputText value="Montant : #{ajoutMouvement.montant}" />
+							<h:outputText value="Opération : #{ajoutMouvement.typeOperation}" />
+							<h:outputText value="Date mouvement : #{ajoutMouvement.date}" />
+						</h:panelGrid>
+					</p:dialog>
+				</p:tab>
+
+				<p:tab title="Historique">
+
+					<p:ring id="ringBasic" value="#{historique.comptes}" var="compte">
+						<p:outputPanel style="text-align:center;" layout="block">  
+            				#{compte.label}  <br />
+							<p:commandButton update="ringBasic" icon="ui-icon-search" title="View" oncomplete="PF('dlg').show()">
+								<f:setPropertyActionListener value="#{compte}" target="#{historique.selectedCompte}" />
+							</p:commandButton>
+						</p:outputPanel>
+					</p:ring>
 
 				</p:tab>
 
-				<p:tab title="Tendances">
+				<p:tab title="Recherche">
+
+					<h:panelGrid columns="4" cellpadding="5">
+						<p:inputText id="searchBox" value="#{search.searchValue}" />
+
+						<p:commandButton value="Recherche" actionListener="#{search.onSearch}" update="tagCloud" styleClass="ui-priority-primary" />
+
+						<h:outputText value="#{search.searchValue}" id="searchValueDisplay" />
+					</h:panelGrid>
+
+					<p:growl id="growl" showDetail="true" sticky="true" />
+
+					<p:tagCloud model="#{search.tagCloudBean.model}" id="tagCloud">
+						<p:ajax event="select" update="tagCloud,searchValueDisplay,searchBox" listener="#{search.onSelectTag}" />
+					</p:tagCloud>
 
 				</p:tab>
 

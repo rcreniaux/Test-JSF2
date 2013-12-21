@@ -9,6 +9,7 @@ import org.primefaces.event.SelectEvent;
 import org.primefaces.model.tagcloud.TagCloudItem;
 import org.rcx.test.jsf2.metier.service.IMetier;
 import org.rcx.test.jsf2.persistence.entity.FavTrend;
+import org.rcx.test.jsf2.web.pfbean.TagCloudBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -21,8 +22,6 @@ public class Search implements Serializable {
 	private String searchValue;
 
 	private TagCloudBean tagCloudBean;
-
-	private Application applicationBean;
 
 	private IMetier metier;
 
@@ -92,14 +91,6 @@ public class Search implements Serializable {
 
 	public void setTagCloudBean(TagCloudBean tagCloudBean) {
 		this.tagCloudBean = tagCloudBean;
-	}
-
-	public Application getApplicationBean() {
-		return applicationBean;
-	}
-
-	public void setApplicationBean(Application application) {
-		this.applicationBean = application;
 	}
 
 }
