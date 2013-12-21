@@ -1,6 +1,7 @@
 package org.rcx.test.jsf2.web;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -32,8 +33,8 @@ public class Search implements Serializable {
 	@PostConstruct
 	private void beforeFirstRender() {
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("spring-config-metier-dao.xml");
-		metier = (IMetier) ctx.getBean("metier");
-		List<FavTrend> favTrends = metier.getAllFavTrend();
+		metier = (IMetier) ctx.getBean("metierREST");
+		List<FavTrend> favTrends = new ArrayList<FavTrend>();
 		
 		for (FavTrend favTrend : favTrends) {
 			tagCloudBean.getModel().addTag(new MyTagCloudItem(favTrend.getValue(), 3));
@@ -47,12 +48,6 @@ public class Search implements Serializable {
 
 	public void onSearch() {
 		incrementTagForSearch();
-		searchForResults();
-	}
-
-	private void searchForResults() {
-		metier.getTwittsBySearch(searchValue);
-		
 	}
 
 	private void incrementTagForSearch() {

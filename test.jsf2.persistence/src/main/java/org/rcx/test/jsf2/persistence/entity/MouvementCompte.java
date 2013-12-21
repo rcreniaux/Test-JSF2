@@ -74,4 +74,12 @@ public class MouvementCompte implements Serializable {
 		this.compte = compte;
 	}
 
+	public MouvementCompte(Date date, float montant, String type, Compte compte) {
+		super();
+		this.date = date;
+		this.montant = montant;
+		this.type = type;
+		this.compte = compte;
+	}
+
 }

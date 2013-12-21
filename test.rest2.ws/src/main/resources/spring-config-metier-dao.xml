@@ -5,11 +5,9 @@
 
   <!-- couches applicatives -->
   <bean id="dao" class="org.rcx.test.jsf2.persistence.dao.DaoJpa" />
-  <bean id="metierBDD" class="org.rcx.test.jsf2.metier.service.MetierBDD">
+  <bean id="restService" class="org.rcx.test.rest2.ws.RESTServiceCompte">
     <property name="dao" ref="dao"/>
   </bean>
-  
-  <bean id="metierREST" class="org.rcx.test.jsf2.metier.service.MetierREST" />
   
   <!-- EntityManagerFactory -->
   <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">

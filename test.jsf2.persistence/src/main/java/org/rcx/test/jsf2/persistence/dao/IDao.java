@@ -12,10 +12,18 @@ import org.rcx.test.jsf2.persistence.exception.MouvementCompteException;
 
 public interface IDao {
 	
-	public List<FavTrend> getAllFavTrend() throws FavTrendException;
+	List<FavTrend> getAllFavTrend() throws FavTrendException;
 	
-	public List<MouvementCompte> getMouvementCompteByCompteId(Integer compteId) throws MouvementCompteException;
+	List<MouvementCompte> getMouvementCompteByCompteId(Integer compteId) throws MouvementCompteException;
 	
-	public List<Compte> getAllCompte() throws CompteException;
+	List<Compte> getAllCompte() throws CompteException;
+	
+	Compte getCompteById(Integer idCompte) throws CompteException;
+	
+	void saveMouvement(MouvementCompte mouvementCompte);
+	
+	void deleteMouvement(MouvementCompte mouvementCompte);
 
+	void updateMouvement(MouvementCompte mouvementCompte);
+	
 }

@@ -52,4 +52,47 @@ public class DaoJpa implements IDao, Serializable {
 		}
 	}
 
+	@Override
+	public void saveMouvement(MouvementCompte mouvementCompte) {
+		em.persist(mouvementCompte);
+
+	}
+
+	@Override
+	public void updateMouvement(MouvementCompte mouvementCompte) {
+
+		MouvementCompte mouvementCompteInDB = em.find(MouvementCompte.class, mouvementCompte.getId());
+
+		em.getTransaction().begin();
+
+		mouvementCompteInDB.setDate(mouvementCompte.getDate());
+		mouvementCompteInDB.setMontant(mouvementCompte.getMontant());
+		mouvementCompteInDB.setType(mouvementCompte.getType());
+		mouvementCompteInDB.setCompte(mouvementCompte.getCompte());
+
+		em.getTransaction().commit();
+
+	}
+
+	@Override
+	public void deleteMouvement(MouvementCompte mouvementCompte) {
+
+		em.find(MouvementCompte.class, mouvementCompte.getId());
+		em.getTransaction().begin();
+		em.remove(mouvementCompte);
+		em.getTransaction().commit();
+	}
+
+	@Override
+	public Compte getCompteById(Integer idCompte) throws CompteException {
+
+		Compte compte = em.find(Compte.class, idCompte);
+
+		if (compte == null) {
+			throw new CompteException("compte introuvable pour id " + idCompte);
+		}
+
+		return em.find(Compte.class, idCompte);
+	}
+
 }

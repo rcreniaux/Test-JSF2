@@ -7,12 +7,16 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
  
-@Path("/hello")
-public class HelloService {
+@Path("/compte")
+public class CompteService {
  
 	@GET
 	@Path("/{param}")
 	public Response getMsg(@PathParam("param") String msg) {
+		
+		if(msg == null){
+			
+		}
  
 		String output = "Jersey repond : " + msg;
  

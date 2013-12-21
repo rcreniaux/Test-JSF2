@@ -23,7 +23,7 @@ public class Historique implements Serializable {
 	@PostConstruct
 	private void beforeFirstRender() {
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("spring-config-metier-dao.xml");
-		metier = (IMetier) ctx.getBean("metier");
+		metier = (IMetier) ctx.getBean("metierBDD");
 		comptes = metier.getAllCompte();
 		
 		if(comptes != null && !comptes.isEmpty() && selectedCompte == null){

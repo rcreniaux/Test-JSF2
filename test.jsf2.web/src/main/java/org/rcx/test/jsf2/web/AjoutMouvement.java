@@ -33,7 +33,7 @@ public class AjoutMouvement implements Serializable {
 	@PostConstruct
 	private void beforeFirstRender() {
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("spring-config-metier-dao.xml");
-		metier = (IMetier) ctx.getBean("metier");
+		metier = (IMetier) ctx.getBean("metierREST");
 		comptes = metier.getAllCompte();
 	}
 
@@ -87,7 +87,16 @@ public class AjoutMouvement implements Serializable {
 	
 	public void saveMouvement(){
 		MouvementDTO mouvementDTO = new MouvementDTO(null, montant, date, typeOperation, selectedCompte);
-//		metier.saveMouvement(mouvementDTO);
+		mouvementDTO.setCompte(selectedCompte);
+		metier.saveMouvement(mouvementDTO);
+		raz();
+	}
+	
+	public void raz(){
+		typeOperation = "Débit";
+		selectedCompte = null;
+		montant = null;
+		date = new Date();
 	}
 
 }
