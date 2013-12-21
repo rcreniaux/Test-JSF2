@@ -37,18 +37,29 @@
 						<p:calendar value="#{ajoutMouvement.date}" id="popupCal" required="true" label="Date mouvement" />
 
 						<f:facet name="footer">
-							<p:commandButton value="Enregistrer" id="ajax" update="tabs" actionListener="#{ajoutMouvement.saveMouvement}" styleClass="ui-priority-primary" />
+							<p:commandButton value="Enregistrer" id="ajax" update="tabs" actionListener="#{ajoutMouvement.saveMouvement}" styleClass="ui-priority-primary"
+								oncomplete="if (args.showDialog){dlg2.show();}" />
 						</f:facet>
 					</p:panelGrid>
 
-					<p:dialog header="Selected Values" modal="true" showEffect="fade" hideEffect="fade" widgetVar="dlg">
-						<h:panelGrid columns="1" id="display">
-							<h:outputText value="Compte : #{ajoutMouvement.selectedCompte}" />
-							<h:outputText value="Montant : #{ajoutMouvement.montant}" />
-							<h:outputText value="Opération : #{ajoutMouvement.typeOperation}" />
-							<h:outputText value="Date mouvement : #{ajoutMouvement.date}" />
-						</h:panelGrid>
+					<p:dialog id="modalDialog" header="Enregistrement terminé" widgetVar="dlg2" modal="true" height="200" width="400" appendToBody="false">
+						<h:outputLabel value="Compte: " />
+						<h:outputText value="#{ajoutMouvement.compteSave}" />
+						<br />
+
+						<h:outputLabel value="Montant: " />
+						<h:outputText value="#{ajoutMouvement.montantSave}" />
+						<br />
+
+						<h:outputLabel value="Type opération: " />
+						<h:outputText value="#{ajoutMouvement.typeSave}" />
+						<br />
+
+						<h:outputLabel value="Date mouvement: " />
+						<h:outputText value="#{ajoutMouvement.dateSave}" />
+						<br />
 					</p:dialog>
+
 				</p:tab>
 
 				<p:tab title="Historique">

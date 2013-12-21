@@ -1,11 +1,13 @@
 package org.rcx.test.jsf2.web;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 
+import org.primefaces.context.RequestContext;
 import org.rcx.test.jsf2.dto.CompteDTO;
 import org.rcx.test.jsf2.dto.MouvementDTO;
 import org.rcx.test.jsf2.metier.service.IMetier;
@@ -29,6 +31,12 @@ public class AjoutMouvement implements Serializable {
 	private CompteDTO compte;
 	
 	private List<CompteDTO> comptes;
+	
+	private String compteSave;
+	private String montantSave;
+	private String typeSave;
+	private String dateSave;
+	
 	
 	@PostConstruct
 	private void beforeFirstRender() {
@@ -89,7 +97,14 @@ public class AjoutMouvement implements Serializable {
 		MouvementDTO mouvementDTO = new MouvementDTO(null, montant, date, typeOperation, selectedCompte);
 		mouvementDTO.setCompte(selectedCompte);
 		metier.saveMouvement(mouvementDTO);
+		
+		compteSave = selectedCompte.getLabel();
+		montantSave = montant.toString();
+		typeSave = typeOperation;
+		dateSave = new SimpleDateFormat("dd-MM-yyyy").format(date);
+		
 		raz();
+		RequestContext.getCurrentInstance().addCallbackParam("showDialog", true);
 	}
 	
 	public void raz(){
@@ -97,6 +112,38 @@ public class AjoutMouvement implements Serializable {
 		selectedCompte = null;
 		montant = null;
 		date = new Date();
+	}
+
+	public String getDateSave() {
+		return dateSave;
+	}
+
+	public void setDateSave(String dateSave) {
+		this.dateSave = dateSave;
+	}
+
+	public String getTypeSave() {
+		return typeSave;
+	}
+
+	public void setTypeSave(String typeSave) {
+		this.typeSave = typeSave;
+	}
+
+	public String getMontantSave() {
+		return montantSave;
+	}
+
+	public void setMontantSave(String montantSave) {
+		this.montantSave = montantSave;
+	}
+
+	public String getCompteSave() {
+		return compteSave;
+	}
+
+	public void setCompteSave(String compteSave) {
+		this.compteSave = compteSave;
 	}
 
 }

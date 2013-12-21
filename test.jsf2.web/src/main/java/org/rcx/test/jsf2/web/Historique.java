@@ -26,9 +26,9 @@ public class Historique implements Serializable {
 		metier = (IMetier) ctx.getBean("metierBDD");
 		comptes = metier.getAllCompte();
 		
-		if(comptes != null && !comptes.isEmpty() && selectedCompte == null){
-			selectedCompte = comptes.get(0);
-		}
+//		if(comptes != null && !comptes.isEmpty() && selectedCompte == null){
+//			selectedCompte = comptes.get(0);
+//		}
 	}
 
 	public List<CompteDTO> getComptes() {
