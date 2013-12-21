@@ -21,14 +21,7 @@ public class TagCloudBean implements Serializable {
     public TagCloudBean() {  
         model = new DefaultTagCloudModel();  
         model.addTag(new MyTagCloudItem("Transformers", 1));  
-        model.addTag(new MyTagCloudItem("RIA", 3));  
-        model.addTag(new MyTagCloudItem("AJAX", 2));  
-        model.addTag(new MyTagCloudItem("jQuery", 15));  
-        model.addTag(new MyTagCloudItem("NextGen", 4));  
         model.addTag(new MyTagCloudItem("JSF 2.0", 2));  
-        model.addTag(new MyTagCloudItem("FCB", 5));  
-        model.addTag(new MyTagCloudItem("Mobile",  3));  
-        model.addTag(new MyTagCloudItem("Themes", 4));  
         model.addTag(new MyTagCloudItem("Rocks", 1));  
     }  
   

@@ -23,7 +23,10 @@
 					</h:panelGrid>
 
 					<p:growl id="growl" showDetail="true" sticky="true" />
-					<p:tagCloud model="#{search.tagCloudBean.model}" id="tagCloud" />
+					
+					<p:tagCloud model="#{search.tagCloudBean.model}" id="tagCloud" >
+						<p:ajax event="select" update="tagCloud,display,name" listener="#{search.onSelectTag}" />  
+					</p:tagCloud>
 
 				</p:tab>
 

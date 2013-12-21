@@ -17,7 +17,7 @@ public class MyTagCloudItem extends DefaultTagCloudItem {
 	}
 	
 	public MyTagCloudItem(String label, int strength){
-		super(label, "/ui/tagCloud.jsf", strength);
+		super(label, "#", strength);
 	}
 
 }

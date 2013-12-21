@@ -7,4 +7,6 @@ import org.rcx.test.jsf2.persistence.entity.FavTrend;
 public interface IMetier {
 
 	public List<FavTrend> getAllFavTrend();
+
+	public void getTwittsBySearch(String searchValue);
 }
