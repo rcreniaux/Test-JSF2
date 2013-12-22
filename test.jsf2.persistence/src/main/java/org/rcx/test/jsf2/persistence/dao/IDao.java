@@ -16,6 +16,8 @@ public interface IDao {
 	
 	List<MouvementCompte> getMouvementCompteByCompteId(Integer compteId) throws MouvementCompteException;
 	
+	List<MouvementCompte> getAllMouvementCompte() throws MouvementCompteException;
+	
 	List<Compte> getAllCompte() throws CompteException;
 	
 	Compte getCompteById(Integer idCompte) throws CompteException;

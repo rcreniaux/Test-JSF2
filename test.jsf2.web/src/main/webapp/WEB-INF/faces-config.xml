@@ -11,6 +11,19 @@
 		<managed-bean-class>org.rcx.test.jsf2.web.pfbean.TagCloudBean</managed-bean-class>
 		<managed-bean-scope>application</managed-bean-scope>
 	</managed-bean>
+
+	<!-- le bean application -->
+	<managed-bean>
+		<managed-bean-name>application</managed-bean-name>
+		<managed-bean-class>org.rcx.test.jsf2.web.Application</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+			<property-name>historiqueBean</property-name>
+			<property-class>org.rcx.test.jsf2.web.Historique</property-class>
+			<value>#{historique}</value>
+		</managed-property>
+	</managed-bean>
+
 	<!-- le bean search -->
 	<managed-bean>
 		<managed-bean-name>search</managed-bean-name>
@@ -27,9 +40,11 @@
 		<managed-bean-name>historique</managed-bean-name>
 		<managed-bean-class>org.rcx.test.jsf2.web.Historique</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
+		<!-- <managed-property> <property-name>applicationBean</property-name> 
+			<value>#{application}</value> </managed-property> -->
 	</managed-bean>
 
-	<!-- le bean historique -->
+	<!-- le bean ajoutMouvement -->
 	<managed-bean>
 		<managed-bean-name>ajoutMouvement</managed-bean-name>
 		<managed-bean-class>org.rcx.test.jsf2.web.AjoutMouvement</managed-bean-class>

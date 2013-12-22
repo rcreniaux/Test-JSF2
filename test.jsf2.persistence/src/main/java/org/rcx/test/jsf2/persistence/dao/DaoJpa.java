@@ -95,4 +95,13 @@ public class DaoJpa implements IDao, Serializable {
 		return em.find(Compte.class, idCompte);
 	}
 
+	@Override
+	public List<MouvementCompte> getAllMouvementCompte() throws MouvementCompteException {
+		try {
+			return em.createNamedQuery("MouvementCompte.findAll").getResultList();
+		} catch (Throwable th) {
+			throw new MouvementCompteException(th);
+		}
+	}
+
 }

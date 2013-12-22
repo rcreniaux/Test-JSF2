@@ -25,7 +25,7 @@ public class MouvementCompte implements Serializable {
 
 	private float montant;
 
-	private String type;
+	private int type;
 
 	// bi-directional many-to-one association to Compte
 	@ManyToOne
@@ -58,11 +58,11 @@ public class MouvementCompte implements Serializable {
 		this.montant = montant;
 	}
 
-	public String getType() {
+	public int getType() {
 		return this.type;
 	}
 
-	public void setType(String type) {
+	public void setType(int type) {
 		this.type = type;
 	}
 
@@ -74,7 +74,7 @@ public class MouvementCompte implements Serializable {
 		this.compte = compte;
 	}
 
-	public MouvementCompte(Date date, float montant, String type, Compte compte) {
+	public MouvementCompte(Date date, float montant, int type, Compte compte) {
 		super();
 		this.date = date;
 		this.montant = montant;

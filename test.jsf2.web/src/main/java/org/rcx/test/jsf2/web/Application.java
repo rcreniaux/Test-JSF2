@@ -1,35 +1,40 @@
 package org.rcx.test.jsf2.web;
 
-import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-
+import org.rcx.test.jsf2.dto.CompteDTO;
 import org.rcx.test.jsf2.dto.MouvementDTO;
 import org.rcx.test.jsf2.metier.service.IMetier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-public class Historique implements Serializable {
+public class Application {
 
-	private static final long serialVersionUID = 1L;
-
+	private List<CompteDTO> comptes;
 	private List<MouvementDTO> mouvements;
-
+	
+	private Historique historiqueBean;
+	
 	private IMetier metier;
 	
-	private String text;
-
-	@PostConstruct
-	private void beforeFirstRender() {
+	public void initData() {
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("spring-config-metier-dao.xml");
 		metier = (IMetier) ctx.getBean("metierREST");
 		refreshData();
+		historiqueBean.setMouvements(mouvements);
+	}
+	
+	public void refreshData() {
+		comptes = metier.getAllCompte();
+		mouvements = metier.getAllMouvement();
 	}
 
-	public void refreshData() {
-		mouvements = metier.getAllMouvement();
+	public List<CompteDTO> getComptes() {
+		return comptes;
+	}
+
+	public void setComptes(List<CompteDTO> comptes) {
+		this.comptes = comptes;
 	}
 
 	public List<MouvementDTO> getMouvements() {
@@ -40,16 +45,12 @@ public class Historique implements Serializable {
 		this.mouvements = mouvements;
 	}
 
-	public String getText() {
-		return text;
+	public Historique getHistoriqueBean() {
+		return historiqueBean;
 	}
 
-	public void setText(String text) {
-		this.text = text;
-	}
-	
-	public void increment() {
-		this.text = text + "a";
+	public void setHistoriqueBean(Historique historiqueBean) {
+		this.historiqueBean = historiqueBean;
 	}
 
 }

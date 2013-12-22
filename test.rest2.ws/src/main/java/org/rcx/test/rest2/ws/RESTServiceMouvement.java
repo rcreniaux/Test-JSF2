@@ -28,6 +28,38 @@ public class RESTServiceMouvement {
 
 	private static final String SEPARATOR = ";";
 	private IDao dao;
+	
+	@GET
+	@Produces("text/plain")
+	public Response getAllMouvement(){
+		initDao();
+
+		try {
+			StringBuilder sb = new StringBuilder();
+			List<MouvementCompte> mComptes = dao.getAllMouvementCompte();
+			for (MouvementCompte mCompte : mComptes) {
+				sb.append(mCompte.getCompte().getId());
+				sb.append(SEPARATOR);
+				sb.append(mCompte.getCompte().getLabel());
+				sb.append(SEPARATOR);
+				sb.append(mCompte.getCompte().getPays());
+				sb.append(SEPARATOR);
+				sb.append(mCompte.getId());
+				sb.append(SEPARATOR);
+				sb.append(mCompte.getMontant());
+				sb.append(SEPARATOR);
+				sb.append(mCompte.getDate());
+				sb.append(SEPARATOR);
+				sb.append(mCompte.getType());
+
+				sb.append("\n");
+			}
+			return Response.status(200).entity(sb.toString()).build();
+		} catch (MouvementCompteException e) {
+			e.printStackTrace();
+		}
+		return Response.status(500).build();
+	}
 
 	/**
 	 * Method processing HTTP GET requests, producing "text/plain" MIME media
@@ -53,6 +85,8 @@ public class RESTServiceMouvement {
 				sb.append(mCompte.getType());
 				sb.append(SEPARATOR);
 				sb.append(mCompte.getDate());
+				sb.append(SEPARATOR);
+				sb.append(mCompte.getCompte().getId());
 				sb.append("\n");
 			}
 			return Response.status(200).entity(sb.toString()).build();
@@ -65,7 +99,7 @@ public class RESTServiceMouvement {
 	@PUT
 	@Produces("text/plain")
 	@Path("/{montant}/{type}/{date}/{compteId}")
-	public Response putIt(@PathParam("montant") Float montant, @PathParam("type") String type, @PathParam("date") String date, @PathParam("compteId") Integer compteId) {
+	public Response putIt(@PathParam("montant") Float montant, @PathParam("type") int type, @PathParam("date") String date, @PathParam("compteId") Integer compteId) {
 
 		initDao();
 

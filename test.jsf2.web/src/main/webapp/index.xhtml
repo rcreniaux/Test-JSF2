@@ -9,6 +9,13 @@
 		<h:outputStylesheet library="css" name="styles.css" />
 	</h:head>
 	<h:body>
+
+		<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();" />
+
+		<p:dialog modal="true" widgetVar="statusDialog" header="Processing..." draggable="false" closable="false" resizable="false" >
+			<p:graphicImage value="/resources/images/dots64.gif" />
+		</p:dialog>
+
 		<h:form id="formulaire">
 			<p:tabView effect="fade" effectDuration="normal" id="tabs">
 
@@ -23,21 +30,22 @@
 						</p:selectOneMenu>
 
 						<h:outputLabel for="montant" value="Montant: *" />
-						<p:inputText id="montant" value="#{ajoutMouvement.montant}" label="Montant" required="true" />
+						<p:panel>
+							<p:inputText id="montant" value="#{ajoutMouvement.montant}" label="Montant" required="true" />
+							<p:slider for="montant" minValue="0" maxValue="15000" />
+						</p:panel>
 
 						<h:outputLabel value="Type opération :" />
-						<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
-							<p:selectOneButton value="#{ajoutMouvement.typeOperation}" required="true" label="Type opération">
-								<f:selectItem itemLabel="Débit" itemValue="Débit" />
-								<f:selectItem itemLabel="Crédit" itemValue="Crédit" />
-							</p:selectOneButton>
-						</h:panelGrid>
+						<p:selectOneButton value="#{ajoutMouvement.typeOperation}" required="true" label="Type opération">
+							<f:selectItem itemLabel="Débit" itemValue="Débit" />
+							<f:selectItem itemLabel="Crédit" itemValue="Crédit" />
+						</p:selectOneButton>
 
 						<h:outputLabel value="Date mouvement :" />
-						<p:calendar value="#{ajoutMouvement.date}" id="popupCal" required="true" label="Date mouvement" />
+						<p:calendar value="#{ajoutMouvement.date}" id="popupCal" required="true" label="Date mouvement" pattern="dd-MM-yyyy" />
 
 						<f:facet name="footer">
-							<p:commandButton value="Enregistrer" id="ajax" update="tabs" actionListener="#{ajoutMouvement.saveMouvement}" styleClass="ui-priority-primary"
+							<p:commandButton value="Enregistrer" id="saveMouvement" update="tabs" actionListener="#{ajoutMouvement.saveMouvement}" styleClass="ui-priority-primary"
 								oncomplete="if (args.showDialog){dlg2.show();}" />
 						</f:facet>
 					</p:panelGrid>
@@ -62,20 +70,40 @@
 
 				</p:tab>
 
-				<p:tab title="Historique">
+				<p:tab title="Historique" id="historiqueTab">
 
-					<p:ring id="ringBasic" value="#{historique.comptes}" var="compte">
-						<p:outputPanel style="text-align:center;" layout="block">  
-            				#{compte.label}  <br />
-							<p:commandButton update="ringBasic" icon="ui-icon-search" title="View" oncomplete="PF('dlg').show()">
-								<f:setPropertyActionListener value="#{compte}" target="#{historique.selectedCompte}" />
-							</p:commandButton>
-						</p:outputPanel>
-					</p:ring>
+					<p:commandButton value="Rafraîchir" id="refreshButton" styleClass="ui-priority-primary">
+						<p:ajax update="dataTableHistorique" listener="#{historique.refreshData}" />
+					</p:commandButton>
+
+					<p:dataTable id="dataTableHistorique" var="mouvement" value="#{historique.mouvements}">
+						<f:facet name="header">  
+				            Ajax Sorting  
+				        </f:facet>
+
+						<p:column sortBy="montant" headerText="Montant">
+							<h:outputText value="#{mouvement.montant}" />
+						</p:column>
+
+						<p:column sortBy="date" headerText="Date">
+							<h:outputText value="#{mouvement.date}">
+								<f:convertDateTime pattern="dd-MM-yyyy" />
+							</h:outputText>
+						</p:column>
+
+						<p:column sortBy="type" headerText="Type opération">
+							<h:outputText value="#{mouvement.type}" />
+						</p:column>
+
+						<p:column sortBy="compte.label" headerText="Comptes">
+							<h:outputText value="#{mouvement.compte.label}" />
+						</p:column>
+
+					</p:dataTable>
 
 				</p:tab>
 
-				<p:tab title="Recherche">
+				<p:tab title="Recherche" id="searchTab">
 
 					<h:panelGrid columns="4" cellpadding="5">
 						<p:inputText id="searchBox" value="#{search.searchValue}" />
@@ -88,13 +116,15 @@
 					<p:growl id="growl" showDetail="true" sticky="true" />
 
 					<p:tagCloud model="#{search.tagCloudBean.model}" id="tagCloud">
-						<p:ajax event="select" update="tagCloud,searchValueDisplay,searchBox" listener="#{search.onSelectTag}" />
+						<p:ajax event="select" update="tagCloud,searchValueDisplay,searchBox" listener="#{search.onSelectTag}" global="false" />
 					</p:tagCloud>
 
 				</p:tab>
 
 			</p:tabView>
 		</h:form>
+
+
 	</h:body>
 </f:view>
 </html>
