@@ -106,17 +106,19 @@
 				<p:tab title="Recherche" id="searchTab">
 
 					<h:panelGrid columns="4" cellpadding="5">
-						<p:inputText id="searchBox" value="#{search.searchValue}" />
+						<p:inputText id="searchBox" value="#{search.searchText}" />
 
-						<p:commandButton value="Recherche" actionListener="#{search.onSearch}" update="tagCloud" styleClass="ui-priority-primary" />
+						<p:commandButton value="Recherche" styleClass="ui-priority-primary" global="false" >
+							<p:ajax update="searchBox,searchValueDisplay,tagCloud" listener="#{search.onSearch}" />
+						</p:commandButton>
 
-						<h:outputText value="#{search.searchValue}" id="searchValueDisplay" />
+						<h:outputText value="#{search.searchValueDisplay}" id="searchValueDisplay" />
 					</h:panelGrid>
 
 					<p:growl id="growl" showDetail="true" sticky="true" />
 
 					<p:tagCloud model="#{search.tagCloudBean.model}" id="tagCloud">
-						<p:ajax event="select" update="tagCloud,searchValueDisplay,searchBox" listener="#{search.onSelectTag}" global="false" />
+						<p:ajax event="select" update="searchValueDisplay,searchBox" listener="#{search.onSelectTag}" global="false" />
 					</p:tagCloud>
 
 				</p:tab>
