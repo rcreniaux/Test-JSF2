@@ -108,8 +108,8 @@
 					<h:panelGrid columns="4" cellpadding="5">
 						<p:inputText id="searchBox" value="#{search.searchText}" />
 
-						<p:commandButton value="Recherche" styleClass="ui-priority-primary" global="false" >
-							<p:ajax update="searchBox,searchValueDisplay,tagCloud" listener="#{search.onSearch}" />
+						<p:commandButton value="Recherche" styleClass="ui-priority-primary" global="false" actionListener="#{search.onSearch}">
+							<p:ajax update="searchValueDisplay,tagCloud" listener="#{search.onSearch}" />
 						</p:commandButton>
 
 						<h:outputText value="#{search.searchValueDisplay}" id="searchValueDisplay" />
@@ -118,7 +118,7 @@
 					<p:growl id="growl" showDetail="true" sticky="true" />
 
 					<p:tagCloud model="#{search.tagCloudBean.model}" id="tagCloud">
-						<p:ajax event="select" update="searchValueDisplay,searchBox" listener="#{search.onSelectTag}" global="false" />
+						<p:ajax event="select" update="searchBox,searchValueDisplay,searchBox" listener="#{search.onSelectTag}" global="false" />
 					</p:tagCloud>
 
 				</p:tab>

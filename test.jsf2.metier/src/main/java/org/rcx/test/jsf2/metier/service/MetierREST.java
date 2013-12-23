@@ -11,6 +11,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TimeZone;
 
 import org.rcx.test.jsf2.dto.CompteDTO;
 import org.rcx.test.jsf2.dto.MouvementDTO;
@@ -126,6 +127,7 @@ public class MetierREST implements IMetier, Serializable {
 			BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
 
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
 			String output;
 			while ((output = br.readLine()) != null) {
 				String[] compteDTOAsString = output.split(";");
